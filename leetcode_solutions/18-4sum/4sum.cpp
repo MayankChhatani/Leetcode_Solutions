@@ -1,40 +1,42 @@
 class Solution {
 public:
     vector<vector<int>> fourSum(vector<int>& nums, int target) {
-        // i am learning and i will be back soon 
-        // op
         vector<vector<int>>ans;
         sort(nums.begin(),nums.end());
-        for(int i=0;i<nums.size();i++){
+        int n=nums.size();
+
+        for(int i=0;i<n;i++){
             if(i>0 && nums[i] == nums[i-1]){
                 continue;
             }
-            for(int j=i+1;j<nums.size();j++){
-                if(j>i+1 && nums[j] == nums[j-1]){
+            for(int j=i+1;j<n;j++){
+                if(j > i+1 && nums[j] == nums[j-1]){           //Hume first j ko kabhi duplicate ke naam par skip nahi karna, kyunki current i ke saath ye pehla candidate hai.
                     continue;
                 }
-                int k=j+1;
-                int l=nums.size() - 1;
-                while(k<l){
-                    long long sum = nums[i];
+                int left= j+1;
+                int right= n-1;
+                while(left < right){
+                    long long sum =nums[i];
                     sum+=nums[j];
-                    sum+=nums[k];
-                    sum+=nums[l];
+                    sum+=nums[left];
+                    sum+=nums[right];
                     if(sum == target){
-                        ans.push_back({nums[i] , nums[j] , nums[k] , nums[l]});
-                        k++;
-                        l--;
-                        while(k<l && nums[k] == nums[k-1]){
-                            k++;
-                        }
-                        while( k<l && nums[l] == nums[l+1]){
-                            l--;
-                        }
+                        ans.push_back({nums[i], nums[j], nums[left], nums[right]});
+                        left++;
+                        right--;
+                    while(left < right && nums[left] == nums[left-1]){
+                        left++;
                     }
-                    else if(sum < target){
-                        k++;
+                    while(left < right && nums[right] == nums[right +1]){
+                        right--;
                     }
-                    else{l--;}
+                    }
+                    else if(sum > target){
+                        right--;
+                    }
+                    else{
+                        left++;
+                    }
                 }
             }
         }
