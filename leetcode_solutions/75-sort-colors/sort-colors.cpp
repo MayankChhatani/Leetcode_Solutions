@@ -1,18 +1,22 @@
 class Solution {
-public:    
-
- // brute force :- selection sort
+public:
     void sortColors(vector<int>& nums) {
-        int n=nums.size();
-        for(int i=0;i<n;i++){
-            int minvalue=i;
-            for(int j=i+1;j<n;j++){
-                if(nums[j] < nums[minvalue]){
-                    minvalue = j;
-                }
+        int i=0;
+        int j=nums.size()-1;
+        int mid=0;
+        while(mid <= j){
+            if(nums[mid] == 0){
+                swap(nums[mid],nums[i]);
+                i++;
+                mid++;
             }
-                    swap(nums[i] , nums[minvalue]);
+            else if(nums[mid] == 2){
+                swap(nums[mid],nums[j]);
+                j--;
+            }
+            else{
+                mid++;
+            }
         }
     }
 };
-
